@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title> Love Test ❤️</title>
+  <meta name="color-scheme" content="dark light">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+/* ==========================
+   CSS کامل و حرفه‌ای
+   ========================== */
+:root{
+  --bg1:#ff99cc; --bg2:#9b59ff; --glass: rgba(255,255,255,0.10);
+  --accent:#ff4da6; --accent-dark:#ff1a8c; --text:#fff;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:'Vazirmatn', Arial, sans-serif; direction:rtl;
+  background: radial-gradient(1200px 600px at 10% 20%, rgba(255,255,255,0.06), transparent),
+              linear-gradient(135deg, var(--bg1), var(--bg2));
+  color:var(--text); -webkit-font-smoothing:antialiased;
+  display:flex; align-items:center; justify-content:center; padding:30px;
+}
+
+/* containers */
+.screen{width:100%; max-width:760px; padding:10px}
+.center{display:flex; align-items:center; justify-content:center; min-height:60vh}
+.card{
+  width:100%; background: var(--glass); border-radius:18px; padding:28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25); backdrop-filter: blur(8px) saturate(120%);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* intro */
+.intro-card h1{ margin:0 0 10px 0; font-size:2.2rem; letter-spacing:0.5px;
+  text-shadow: 0 6px 20px rgba(155,89,255,0.12); }
+.intro-card p{ margin:0 0 18px 0; color:rgba(255,255,255,0.95); font-size:1rem; }
+
+/* question */
+.question-card{ max-width:640px; margin:auto; text-align:center;}
+.progress{ font-size:0.95rem; color: rgba(255,255,255,0.85); margin-bottom:12px; }
+h2#question-text{ margin:10px 0 18px 0; font-size:1.25rem; line-height:1.6; text-align:right; white-space:pre-wrap; }
+input#answer-input{
+  width:100%; padding:12px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.04); color:var(--text); font-size:1rem; outline:none;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+input#answer-input::placeholder{ color: rgba(255,255,255,0.7); }
+input#answer-input:focus{ box-shadow:0 8px 30px rgba(155,89,255,0.16); transform: translateY(-2px); }
+
+/* buttons */
+.btn{ display:inline-block; padding:10px 22px; border-radius:999px; cursor:pointer; border:none; font-weight:600; transition: all 0.22s ease; }
+.btn.primary{ background: linear-gradient(180deg, var(--accent), var(--accent-dark)); color:white; box-shadow: 0 8px 30px rgba(255,77,166,0.25); }
+.btn.primary:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 18px 50px rgba(255,26,140,0.26); }
+
+/* feedback & hint */
+.message{ min-height:44px; margin-top:16px; font-size:1rem; color:#fffdfd; }
+.hint{ color: rgba(255,255,255,0.75); font-size:0.95rem; margin-top:8px; }
+
+/* gift image (SVG container) */
+.gift-card{ text-align:center; }
+.gift-image{
+  width:320px; max-width:90%; margin:8px auto 0 auto; cursor:pointer; display:none;
+  border-radius:18px; box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
+  padding:12px;
+  transition: transform 0.32s ease, box-shadow 0.32s ease;
+}
+.gift-image:hover{ transform: translateY(-6px) rotate(-1.5deg) scale(1.02); box-shadow: 0 28px 70px rgba(0,0,0,0.38); }
+
+.gift-svg{
+  width:100%; height:auto; display:block;
+  border-radius:12px;
+}
+
+/* hearts animation */
+#hearts-container{ position:fixed; left:0; right:0; top:0; bottom:0; pointer-events:none; overflow:hidden; z-index:10; }
+.heart{ position:absolute; font-size:24px; opacity:0.95; transform: translateY(0) scale(1); animation: floatUp linear forwards; }
+@keyframes floatUp{ 0%{ transform: translateY(0) scale(1); opacity:1;} 100%{ transform: translateY(-120vh) scale(1.4); opacity:0; } }
+
+/* shake for wrong answer */
+.shake { animation: shakeX .6s; }
+@keyframes shakeX{ 0%{ transform: translateX(0) } 20%{ transform: translateX(-6px) } 40%{ transform: translateX(6px) } 60%{ transform: translateX(-4px) } 80%{ transform: translateX(4px) } 100%{ transform: translateX(0) } }
+
+/* napenti typewriter */
+.typewriter{ font-size:1rem; white-space:pre-wrap; text-align:right; line-height:1.6; min-height:120px; padding:6px; }
+
+/* utility */
+.hidden{ display:none !important; }
+.fade{ animation:fadeIn .8s both; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+
+/* responsive */
+@media (max-width:480px){
+  .card{ padding:18px; border-radius:14px; }
+  h2#question-text{ font-size:1rem; }
+  .gift-image{ width:220px; }
+}
+  </style>
+</head>
+<body>
+  <div id="app">
+
+    <!-- Intro -->
+    <section id="intro-screen" class="screen center">
+      <div class="card intro-card" role="region" aria-label="intro">
+        <h1 id="intro-title">This is a Love Test</h1>
+        <p id="intro-text"></p>
+        <button id="start-btn" class="btn primary" aria-label="شروع تست"></button>
+      </div>
+    </section>
+
+    <!-- Question -->
+    <section id="question-screen" class="screen center hidden" aria-hidden="true">
+      <div class="card question-card" role="region" aria-label="question">
+        <div id="progress" class="progress">question <span id="current-num">1</span> از <span id="total-num">3</span></div>
+        <h2 id="question-text" class="fade"></h2>
+        <input id="answer-input" type="text" placeholder="جواب رو اینجا بنویس..." autocomplete="off" />
+        <div class="actions" style="margin-top:12px;">
+          <button id="submit-btn" class="btn primary"> submit answer </button>
+        </div>
+        <p id="feedback" class="message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- Gift (SVG inline) -->
+    <section id="gift-screen" class="screen center hidden" aria-hidden="true">
+      <div class="card gift-card">
+        <div id="giftImage" class="gift-image" role="button" tabindex="0" aria-label="کادوی عشق">
+          <!-- Inline SVG gift (طراحی اختصاصی) -->
+          <svg class="gift-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#ffd3e0"/>
+                <stop offset="1" stop-color="#ff9ccf"/>
+              </linearGradient>
+              <linearGradient id="ribbon" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#ff5f91"/>
+                <stop offset="1" stop-color="#ff2e8e"/>
+              </linearGradient>
+              <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity="0.18"/>
+              </filter>
+            </defs>
+
+            <!-- box -->
+            <g filter="url(#s)">
+              <rect x="36" y="140" rx="28" ry="28" width="440" height="260" fill="url(#g1)" stroke="#ff6fa6" stroke-width="6"/>
+              <!-- lid shadow -->
+              <rect x="36" y="120" rx="24" ry="24" width="440" height="60" fill="#fff1" />
+            </g>
+
+            <!-- vertical ribbon -->
+            <rect x="240" y="120" width="40" height="280" rx="8" fill="url(#ribbon)"/>
+            <!-- horizontal ribbon -->
+            <rect x="36" y="230" width="440" height="48" rx="10" fill="url(#ribbon)" />
+
+            <!-- bow (left) -->
+            <g transform="translate(160,110) rotate(-18)">
+              <path d="M0 0 C -40 -10 -60 30 -10 50 C 30 60 60 30 30 10 C 15 -5 5 -2 0 0 Z" fill="#ff8bb2"/>
+              <path d="M0 0 C -20 -6 -30 10 -6 24 C 10 32 30 16 20 6 C 14 -1 7 -1 0 0 Z" fill="#ff5f91" opacity="0.9"/>
+            </g>
+
+            <!-- bow (right) -->
+            <g transform="translate(360,110) rotate(18)">
+              <path d="M0 0 C 40 -10 60 30 10 50 C -30 60 -60 30 -30 10 C -15 -5 -5 -2 0 0 Z" fill="#ff8bb2"/>
+              <path d="M0 0 C 20 -6 30 10 6 24 C -10 32 -30 16 -20 6 C -14 -1 -7 -1 0 0 Z" fill="#ff5f91" opacity="0.9"/>
+            </g>
+
+            <!-- center knot -->
+            <circle cx="256" cy="152" r="22" fill="#ff2e8e" stroke="#fff3" stroke-width="4"/>
+            <circle cx="256" cy="152" r="8" fill="#fff8" opacity="0.9"/>
+
+            <!-- small hearts decoration -->
+            <g transform="translate(110,320) scale(0.7)">
+              <path d="M32 4 C18 -6 0 4 0 20 C0 34 32 52 32 52 C32 52 64 34 64 20 C64 4 46 -6 32 4 Z" fill="#ff6fa6" opacity="0.95"/>
+            </g>
+            <g transform="translate(380,360) scale(0.5)">
+              <path d="M32 4 C18 -6 0 4 0 20 C0 34 32 52 32 52 C32 52 64 34 64 20 C64 4 46 -6 32 4 Z" fill="#ff9ccf" opacity="0.95"/>
+            </g>
+          </svg>
+        </div>
+
+        <p id="gift-text" class="message"></p>
+        <p class="hint"> click to open that 💝</p>
+      </div>
+    </section>
+
+    <!-- Napenti Story -->
+    <section id="napenti-screen" class="screen center hidden" aria-hidden="true">
+      <div class="card napenti-card">
+        <h2 style="margin-top:0">❤️</h2>
+        <p id="napenti-story" class="typewriter" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- hearts -->
+    <div id="hearts-container" aria-hidden="true"></div>
+  </div>
+
+  <script>
+/* ==========================
+   کانفیگ (از روی چیزی که فرستادی)
+   همه‌چیز اینجا هست، نیازی به fetch نیست.
+   ========================== */
+const config = {
+  "introText": "This is a Love test maybe you be a losser",
+  "startButtonText": "start test ❤️",
+  "giftMessage": "Correct",
+  "napentiStory": "i love you for ever ❤️",
+  "questions": [
+    {
+      "position": 1,
+      "text": "wait wait are you my love? say our secret Love password (write Love)",
+      "answer": ["Love"],
+      "correctMessage": "Yeahh  well done my love 😍",
+      "wrongMessages": [
+        "i dont think you are be my love",
+        "hey hey this test just for my love",
+        "incorrect Try Again"
+      ]
+    },
+    {
+      "position": 2,
+      "text": "where we see for the First Time?(write park)",
+      "answer": ["park", "neture park", "north park", "Star park"],
+      "correctMessage": "yeah ofc we meet to park for the first time",
+      "wrongMessages": [
+        "noooo do you forget taht?  ",
+        "that incorrect but dont worry😘"
+      ]
+    },
+    {
+      "position": 3,
+      "text": "how much i love you? (write Galaxy or 1000 10000)",
+      "answer": ["Galaxt"],
+      "correctType": "contains",
+      "correctKeywords": ["1", "1000", "10000", "A Galaxy ", "100000000", "milion", "bilion"],
+      "correctMessage": "Oh yeah i love you so much bigger that",
+      "wrongMessages": ["No my love i love you very much", "incorrect but i love you too much"]
+    }
+  ]
+};
+
+/* ==========================
+   منطق تست
+   ========================== */
+let questions = Array.isArray(config.questions) ? config.questions.slice().sort((a,b)=> (a.position||0)-(b.position||0)) : [];
+let currentIndex = 0;
+
+/* DOM refs */
+const introTextEl = document.getElementById('intro-text');
+const startBtn = document.getElementById('start-btn');
+const totalNum = document.getElementById('total-num');
+const currentNum = document.getElementById('current-num');
+const questionText = document.getElementById('question-text');
+const answerInput = document.getElementById('answer-input');
+const submitBtn = document.getElementById('submit-btn');
+const feedback = document.getElementById('feedback');
+const giftImage = document.getElementById('giftImage');
+const giftText = document.getElementById('gift-text');
+const napentiStoryEl = document.getElementById('napenti-story');
+
+/* init UI */
+introTextEl.innerText = config.introText || '';
+startBtn.innerText = config.startButtonText || 'start';
+totalNum.innerText = questions.length;
+giftText.innerText = config.giftMessage || '';
+
+/* events */
+startBtn.addEventListener('click', startTest);
+submitBtn.addEventListener('click', checkAnswer);
+answerInput.addEventListener('keydown', (e)=> { if(e.key==='Enter') checkAnswer(); });
+giftImage.addEventListener('click', onGiftClick);
+giftImage.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); onGiftClick(); } });
+
+/* helpers */
+function showScreen(id){
+  const screens = ['intro-screen','question-screen','gift-screen','napenti-screen'];
+  screens.forEach(s => {
+    const el = document.getElementById(s);
+    if (!el) return;
+    if (s === id) { el.classList.remove('hidden'); el.setAttribute('aria-hidden','false'); }
+    else { el.classList.add('hidden'); el.setAttribute('aria-hidden','true'); }
+  });
+}
+
+function normalizeText(s){
+  if (s === null || s === undefined) return '';
+  return String(s)
+    .replace(/\u200c/g,'') // zero-width
+    .replace(/[^\w\u0600-\u06FF\u0590-\u05FF\s\^\+\*]/g,'') // remove punctuation except some
+    .replace(/\s+/g,' ')
+    .trim()
+    .toLowerCase();
+}
+
+function matchesAnswer(userRaw, q){
+  const user = normalizeText(userRaw);
+  if (!q) return false;
+
+  if (q.correctType && q.correctType === 'contains' && Array.isArray(q.correctKeywords)){
+    const uNoSpace = user.replace(/\s+/g,'');
+    for (let kw of q.correctKeywords){
+      const normalizedKw = normalizeText(kw).replace(/\s+/g,'');
+      if (!normalizedKw) continue;
+      if (uNoSpace.includes(normalizedKw)) return true;
+    }
+    // allow patterns like 10^100 (with or without spaces)
+    if (/10\s*\^\s*100/.test(userRaw)) return true;
+    if (/10\s*به\s*توان\s*100/.test(user)) return true;
+    return false;
+  }
+
+  if (Array.isArray(q.answer)){
+    for (let a of q.answer){
+      if (normalizeText(a) === user) return true;
+      if (normalizeText(a).replace(/\s+/g,'') === user.replace(/\s+/g,'')) return true;
+    }
+  } else if (typeof q.answer === 'string'){
+    if (normalizeText(q.answer) === user) return true;
+    if (normalizeText(q.answer).replace(/\s+/g,'') === user.replace(/\s+/g,'')) return true;
+  }
+
+  return false;
+}
+
+/* UI actions */
+function startTest(){
+  currentIndex = 0;
+  showScreen('question-screen');
+  showQuestion();
+}
+
+function showQuestion(){
+  const q = questions[currentIndex];
+  if (!q) { showGift(); return; }
+  currentNum.innerText = (currentIndex + 1);
+  questionText.innerText = q.text || '';
+  answerInput.value = '';
+  feedback.innerText = '';
+  setTimeout(()=> answerInput.focus(), 200);
+}
+
+function giveHearts(count = 8){
+  const container = document.getElementById('hearts-container');
+  for (let i=0;i<count;i++){
+    const d = document.createElement('div');
+    d.className = 'heart';
+    d.textContent = '❤️';
+    const left = Math.random()*90 + 2;
+    d.style.left = left + 'vw';
+    d.style.bottom = (-10 - Math.random()*10) + 'px';
+    d.style.fontSize = (18 + Math.random()*30) + 'px';
+    const duration = 3 + Math.random()*3;
+    d.style.animationDuration = duration + 's';
+    container.appendChild(d);
+    setTimeout(()=> d.remove(), (duration+0.2)*1000);
+  }
+}
+
+function checkAnswer(){
+  const q = questions[currentIndex];
+  if (!q) return;
+  const user = answerInput.value || '';
+  if (user.trim().length === 0){
+    feedback.innerText = 'write somthing my love😉';
+    return;
+  }
+
+  if (matchesAnswer(user, q)){
+    // correct
+    feedback.innerText = q.correctMessage || 'well done!';
+    giveHearts(10);
+    setTimeout(()=> {
+      currentIndex++;
+      if (currentIndex < questions.length) showQuestion();
+      else showGift();
+    }, 900);
+  } else {
+    // wrong: show random wrong message; DON'T advance
+    const wm = Array.isArray(q.wrongMessages) && q.wrongMessages.length ? q.wrongMessages : ['incorrect but still i love you😘'];
+    const pick = wm[Math.floor(Math.random()*wm.length)];
+    feedback.innerText = pick;
+    // shake input
+    answerInput.classList.remove('shake');
+    void answerInput.offsetWidth;
+    answerInput.classList.add('shake');
+    setTimeout(()=> answerInput.classList.remove('shake'), 700);
+  }
+}
+
+/* show gift (SVG) */
+function showGift(){
+  showScreen('gift-screen');
+  giftImage.style.display = 'block';
+  giftImage.setAttribute('tabindex','0');
+  giftText.innerText = config.giftMessage || '';
+}
+
+/* when gift clicked -> show napenti story with typewriter */
+function onGiftClick(){
+  showScreen('napenti-screen');
+  const story = config.napentiStory || '';
+  napentiStoryEl.innerText = '';
+  let i=0;
+  function step(){
+    if (i <= story.length){
+      napentiStoryEl.innerText = story.slice(0,i);
+      i++;
+      setTimeout(step, 18 + Math.random()*30);
+    } else {
+      // optional final hearts
+      giveHearts(18);
+    }
+  }
+  step();
+}
+
+/* accessibility: if user clicks Enter on start button, start too */
+startBtn.addEventListener('keydown', (e)=> { if (e.key==='Enter' || e.key===' ') { e.preventDefault(); startTest(); } });
+
+/* initial screen */
+showScreen('intro-screen');
+
+  </script>
+</body>
+</html>
