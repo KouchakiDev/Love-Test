@@ -1,0 +1,92 @@
+
+/* ==========================
+   CSS کامل و حرفه‌ای
+   ========================== */
+:root{
+  --bg1:#ff99cc; --bg2:#9b59ff; --glass: rgba(255,255,255,0.10);
+  --accent:#ff4da6; --accent-dark:#ff1a8c; --text:#fff;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:'Vazirmatn', Arial, sans-serif; direction:rtl;
+  background: radial-gradient(1200px 600px at 10% 20%, rgba(255,255,255,0.06), transparent),
+              linear-gradient(135deg, var(--bg1), var(--bg2));
+  color:var(--text); -webkit-font-smoothing:antialiased;
+  display:flex; align-items:center; justify-content:center; padding:30px;
+}
+
+/* containers */
+.screen{width:100%; max-width:760px; padding:10px}
+.center{display:flex; align-items:center; justify-content:center; min-height:60vh}
+.card{
+  width:100%; background: var(--glass); border-radius:18px; padding:28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25); backdrop-filter: blur(8px) saturate(120%);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* intro */
+.intro-card h1{ margin:0 0 10px 0; font-size:2.2rem; letter-spacing:0.5px;
+  text-shadow: 0 6px 20px rgba(155,89,255,0.12); }
+.intro-card p{ margin:0 0 18px 0; color:rgba(255,255,255,0.95); font-size:1rem; }
+
+/* question */
+.question-card{ max-width:640px; margin:auto; text-align:center;}
+.progress{ font-size:0.95rem; color: rgba(255,255,255,0.85); margin-bottom:12px; }
+h2#question-text{ margin:10px 0 18px 0; font-size:1.25rem; line-height:1.6; text-align:right; white-space:pre-wrap; }
+input#answer-input{
+  width:100%; padding:12px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.04); color:var(--text); font-size:1rem; outline:none;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+input#answer-input::placeholder{ color: rgba(255,255,255,0.7); }
+input#answer-input:focus{ box-shadow:0 8px 30px rgba(155,89,255,0.16); transform: translateY(-2px); }
+
+/* buttons */
+.btn{ display:inline-block; padding:10px 22px; border-radius:999px; cursor:pointer; border:none; font-weight:600; transition: all 0.22s ease; }
+.btn.primary{ background: linear-gradient(180deg, var(--accent), var(--accent-dark)); color:white; box-shadow: 0 8px 30px rgba(255,77,166,0.25); }
+.btn.primary:hover{ transform: translateY(-3px) scale(1.02); box-shadow: 0 18px 50px rgba(255,26,140,0.26); }
+
+/* feedback & hint */
+.message{ min-height:44px; margin-top:16px; font-size:1rem; color:#fffdfd; }
+.hint{ color: rgba(255,255,255,0.75); font-size:0.95rem; margin-top:8px; }
+
+/* gift image (SVG container) */
+.gift-card{ text-align:center; }
+.gift-image{
+  width:320px; max-width:90%; margin:8px auto 0 auto; cursor:pointer; display:none;
+  border-radius:18px; box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
+  padding:12px;
+  transition: transform 0.32s ease, box-shadow 0.32s ease;
+}
+.gift-image:hover{ transform: translateY(-6px) rotate(-1.5deg) scale(1.02); box-shadow: 0 28px 70px rgba(0,0,0,0.38); }
+
+.gift-svg{
+  width:100%; height:auto; display:block;
+  border-radius:12px;
+}
+
+/* hearts animation */
+#hearts-container{ position:fixed; left:0; right:0; top:0; bottom:0; pointer-events:none; overflow:hidden; z-index:10; }
+.heart{ position:absolute; font-size:24px; opacity:0.95; transform: translateY(0) scale(1); animation: floatUp linear forwards; }
+@keyframes floatUp{ 0%{ transform: translateY(0) scale(1); opacity:1;} 100%{ transform: translateY(-120vh) scale(1.4); opacity:0; } }
+
+/* shake for wrong answer */
+.shake { animation: shakeX .6s; }
+@keyframes shakeX{ 0%{ transform: translateX(0) } 20%{ transform: translateX(-6px) } 40%{ transform: translateX(6px) } 60%{ transform: translateX(-4px) } 80%{ transform: translateX(4px) } 100%{ transform: translateX(0) } }
+
+/* napenti typewriter */
+.typewriter{ font-size:1rem; white-space:pre-wrap; text-align:right; line-height:1.6; min-height:120px; padding:6px; }
+
+/* utility */
+.hidden{ display:none !important; }
+.fade{ animation:fadeIn .8s both; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+
+/* responsive */
+@media (max-width:480px){
+  .card{ padding:18px; border-radius:14px; }
+  h2#question-text{ font-size:1rem; }
+  .gift-image{ width:220px; }
+}

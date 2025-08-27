@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title> Love Test ❤️</title>
+  <meta name="color-scheme" content="dark light">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+  <link type="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Intro -->
+    <section id="intro-screen" class="screen center">
+      <div class="card intro-card" role="region" aria-label="intro">
+        <h1 id="intro-title">This is a Love Test</h1>
+        <p id="intro-text"></p>
+        <button id="start-btn" class="btn primary" aria-label="شروع تست"></button>
+      </div>
+    </section>
+
+    <!-- Question -->
+    <section id="question-screen" class="screen center hidden" aria-hidden="true">
+      <div class="card question-card" role="region" aria-label="question">
+        <div id="progress" class="progress">question <span id="current-num">1</span> از <span id="total-num">3</span></div>
+        <h2 id="question-text" class="fade"></h2>
+        <input id="answer-input" type="text" placeholder="جواب رو اینجا بنویس..." autocomplete="off" />
+        <div class="actions" style="margin-top:12px;">
+          <button id="submit-btn" class="btn primary"> submit answer </button>
+        </div>
+        <p id="feedback" class="message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- Gift (SVG inline) -->
+    <section id="gift-screen" class="screen center hidden" aria-hidden="true">
+      <div class="card gift-card">
+        <div id="giftImage" class="gift-image" role="button" tabindex="0" aria-label="کادوی عشق">
+          <!-- Inline SVG gift (طراحی اختصاصی) -->
+          <svg class="gift-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#ffd3e0"/>
+                <stop offset="1" stop-color="#ff9ccf"/>
+              </linearGradient>
+              <linearGradient id="ribbon" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#ff5f91"/>
+                <stop offset="1" stop-color="#ff2e8e"/>
+              </linearGradient>
+              <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity="0.18"/>
+              </filter>
+            </defs>
+
+            <!-- box -->
+            <g filter="url(#s)">
+              <rect x="36" y="140" rx="28" ry="28" width="440" height="260" fill="url(#g1)" stroke="#ff6fa6" stroke-width="6"/>
+              <!-- lid shadow -->
+              <rect x="36" y="120" rx="24" ry="24" width="440" height="60" fill="#fff1" />
+            </g>
+
+            <!-- vertical ribbon -->
+            <rect x="240" y="120" width="40" height="280" rx="8" fill="url(#ribbon)"/>
+            <!-- horizontal ribbon -->
+            <rect x="36" y="230" width="440" height="48" rx="10" fill="url(#ribbon)" />
+
+            <!-- bow (left) -->
+            <g transform="translate(160,110) rotate(-18)">
+              <path d="M0 0 C -40 -10 -60 30 -10 50 C 30 60 60 30 30 10 C 15 -5 5 -2 0 0 Z" fill="#ff8bb2"/>
+              <path d="M0 0 C -20 -6 -30 10 -6 24 C 10 32 30 16 20 6 C 14 -1 7 -1 0 0 Z" fill="#ff5f91" opacity="0.9"/>
+            </g>
+
+            <!-- bow (right) -->
+            <g transform="translate(360,110) rotate(18)">
+              <path d="M0 0 C 40 -10 60 30 10 50 C -30 60 -60 30 -30 10 C -15 -5 -5 -2 0 0 Z" fill="#ff8bb2"/>
+              <path d="M0 0 C 20 -6 30 10 6 24 C -10 32 -30 16 -20 6 C -14 -1 -7 -1 0 0 Z" fill="#ff5f91" opacity="0.9"/>
+            </g>
+
+            <!-- center knot -->
+            <circle cx="256" cy="152" r="22" fill="#ff2e8e" stroke="#fff3" stroke-width="4"/>
+            <circle cx="256" cy="152" r="8" fill="#fff8" opacity="0.9"/>
+
+            <!-- small hearts decoration -->
+            <g transform="translate(110,320) scale(0.7)">
+              <path d="M32 4 C18 -6 0 4 0 20 C0 34 32 52 32 52 C32 52 64 34 64 20 C64 4 46 -6 32 4 Z" fill="#ff6fa6" opacity="0.95"/>
+            </g>
+            <g transform="translate(380,360) scale(0.5)">
+              <path d="M32 4 C18 -6 0 4 0 20 C0 34 32 52 32 52 C32 52 64 34 64 20 C64 4 46 -6 32 4 Z" fill="#ff9ccf" opacity="0.95"/>
+            </g>
+          </svg>
+        </div>
+
+        <p id="gift-text" class="message"></p>
+        <p class="hint"> click to open that 💝</p>
+      </div>
+    </section>
+
+    <!-- Napenti Story -->
+    <section id="napenti-screen" class="screen center hidden" aria-hidden="true">
+      <div class="card napenti-card">
+        <h2 style="margin-top:0">❤️</h2>
+        <p id="napenti-story" class="typewriter" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- hearts -->
+    <div id="hearts-container" aria-hidden="true"></div>
+  </div>
+
+  <script src="script.js"> </script>
+</body>
+</html>
